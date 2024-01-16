@@ -3,6 +3,7 @@ use std::iter;
 use std::ops::Not;
 use std::time::SystemTime;
 
+use cushy::kludgine::Color;
 use cushy::value::{Dynamic, IntoValue, Validations};
 use cushy::widget::MakeWidget;
 use cushy::widgets::button::ButtonKind;
@@ -31,27 +32,31 @@ fn main() -> cushy::Result {
     let for_myself = "На себя:"
         .align_left()
         .and(profit.map_each(|val| (val * 0.1).to_string()))
-        .into_rows();
+        .into_rows()
+        .contain()
+        .background_color(Color::new(127, 95, 169, 255));
 
     let expanses = "Общие траты:"
         .align_left()
         .and(profit.map_each(|val| (val * 0.7).to_string()))
-        .into_rows();
+        .into_rows()
+        .contain()
+        .background_color(Color::new(85, 126, 184, 255));
 
     let piggybank = "В копилку:"
         .align_left()
         .and(profit.map_each(|val| (val * 0.2).to_string()))
-        .into_rows();
+        .into_rows()
+        .contain()
+        .background_color(Color::new(127, 95, 169, 255));
 
     let money_block = for_myself
         .expand_horizontally()
         .and(expanses.expand_horizontally())
         .and(piggybank.expand_horizontally())
-        .into_columns()
-        .contain()
-        .expand_horizontally();
+        .into_columns();
 
-    title.and(input).and(money_block).into_rows().run()
+    title.and(input).and(money_block.pad()).into_rows().run()
 }
 
 fn validate_float(input: &String) -> Result<(), &'static str> {
