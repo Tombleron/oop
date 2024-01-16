@@ -3,10 +3,9 @@
 
 use std::time::Duration;
 
-use cushy::animation::ZeroToOne;
-use cushy::value::{Dynamic, Switchable};
+use cushy::value::Dynamic;
 use cushy::widget::MakeWidget;
-use cushy::widgets::progress::{Progress, Progressable};
+use cushy::widgets::progress::Progressable;
 use cushy::Run;
 
 fn main() -> cushy::Result {
