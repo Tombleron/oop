@@ -56,7 +56,11 @@ fn main() -> cushy::Result {
         .and(piggybank.expand_horizontally())
         .into_columns();
 
-    title.and(input).and(money_block.pad()).into_rows().run()
+    title
+        .and(input.pad())
+        .and(money_block.pad())
+        .into_rows()
+        .run()
 }
 
 fn validate_float(input: &String) -> Result<(), &'static str> {
